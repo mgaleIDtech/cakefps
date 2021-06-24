@@ -14,24 +14,29 @@ public class PlayerController : MonoBehaviour
     #region Local Members
 
     private PlayerMotor _playerMotor = null;
+    private PlayerGun _playerGun = null;
 
     #endregion
 
     private void Awake()
     {
         _playerMotor = GetComponent<PlayerMotor>();
-
         if (_playerMotor == null)
             Debug.LogError("Could not find a PlayerMotor component on " + gameObject.name);
+
+
+        _playerGun = GetComponent<PlayerGun>();
+        if (_playerGun == null)
+            Debug.LogError("Could not find a PlayerGun component on " + gameObject.name);
     }
 
     private void Update()
     {
         var axisValues = new Vector2();
-
         axisValues = GetAxisValues();
-
         MovePlayer(axisValues);
+
+        HandleShooting();
     }
 
     private Vector2 GetAxisValues()
@@ -47,5 +52,11 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer(Vector2 axisValues)
     {
         _playerMotor.MoveWithJoystick(axisValues);
+    }
+
+    private void HandleShooting()
+    {
+        if (Input.GetMouseButtonDown(0))
+            _playerGun.Shoot();
     }
 }
