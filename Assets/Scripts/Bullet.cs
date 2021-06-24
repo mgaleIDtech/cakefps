@@ -21,6 +21,10 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         HandleTTL();
+    }
+
+    private void FixedUpdate()
+    {
         Move();
     }
 
