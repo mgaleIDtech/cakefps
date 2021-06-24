@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4981886e0748550458758d1917768568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 20
 --- !u!54 &788328368617825831
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,7 +154,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
