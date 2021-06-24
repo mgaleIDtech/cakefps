@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; } = null;
 
-    public PlayerMotor _PlayerMotor = null;
+    public PlayerBase _PlayerCharacter = null;
 
     private void Awake()
     {
