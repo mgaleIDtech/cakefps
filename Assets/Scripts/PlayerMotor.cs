@@ -21,6 +21,11 @@ public class PlayerMotor : MonoBehaviour
             Debug.LogError("Could not find a CharacterController component on " + gameObject.name);
     }
 
+    private void Start()
+    {
+        GameManager.Instance._PlayerMotor = this;
+    }
+
     private void Update()
     {
         if (_cc.isGrounded == false)
