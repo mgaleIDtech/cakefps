@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     #region Local Members
 
     private PlayerMotor _playerMotor = null;
-    private PlayerGun _playerGun = null;
+    private Gun _playerGun = null;
 
     #endregion
 
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Could not find a PlayerMotor component on " + gameObject.name);
 
 
-        _playerGun = GetComponent<PlayerGun>();
+        _playerGun = GetComponent<Gun>();
         if (_playerGun == null)
             Debug.LogError("Could not find a PlayerGun component on " + gameObject.name);
     }
