@@ -7,6 +7,10 @@ public class PlayerMotor : MonoBehaviour
     private CharacterController _cc = null;
 
     [SerializeField]
+    private float _speed = 2f;
+    [SerializeField]
+    private float _speedRot = 90f;
+    [SerializeField]
     private float _gravity = 2f;
 
     private void Awake()
@@ -25,15 +29,23 @@ public class PlayerMotor : MonoBehaviour
 
     private void ApplyGravity()
     {
-        _cc.Move(new Vector3(0f, -_gravity, 0f));
+        _cc.Move(new Vector3(0f, -_gravity * Time.deltaTime, 0f));
     }
 
     public void MoveWithJoystick(Vector2 joystickAxis)
     {
         Vector3 moveVector = new Vector3();
 
-        //moveVector.x = 
+        // Vertical (Y) is forward and backwards.
+        moveVector = transform.TransformDirection(Vector3.forward) * (joystickAxis.y * _speed * Time.deltaTime);
+        _cc.Move(moveVector);
 
-        //_cc.Move(moveVector);
+        // Rotation
+        // Horizontal (X) is rotating
+        var rot = transform.rotation.eulerAngles;
+        rot.y += joystickAxis.x * _speedRot * Time.deltaTime;
+        transform.rotation = Quaternion.Euler(rot);
+
+        Debug.Log("Rot: " + rot);
     }
 }
