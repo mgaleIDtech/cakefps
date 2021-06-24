@@ -7,8 +7,10 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float _speed = 20f;
 
-    private Rigidbody _rb = null;
+    [SerializeField]
+    private int _damage = 1;
 
+    private Rigidbody _rb = null;
     private float _ttl = 4f;
 
     private void Awake()
@@ -38,10 +40,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        ActorBase actor;
+
+        if (other.gameObject.TryGetComponent(out actor))
         {
-            var enemy = other.gameObject.GetComponent<AI_Turret>();
-            Destroy(other.gameObject);
+            actor.HurtActor(_damage);
         }
 
         Destroy(gameObject);
