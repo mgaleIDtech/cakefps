@@ -12,6 +12,13 @@ public class PlayerMotor : MonoBehaviour
     private float _speedRot = 90f;
     [SerializeField]
     private float _gravity = 2f;
+    [SerializeField]
+    private float _jumpPower = 2f;
+
+    /// <summary>
+    /// The gravity (or anti-gravity) the character is currently being applied with.
+    /// </summary>
+    private float _currentVertPower = 0f;
 
     private void Awake()
     {
@@ -19,11 +26,6 @@ public class PlayerMotor : MonoBehaviour
 
         if (_cc == null)
             Debug.LogError("Could not find a CharacterController component on " + gameObject.name);
-    }
-
-    private void Start()
-    {
-        GameManager.Instance._PlayerMotor = this;
     }
 
     private void Update()
@@ -34,7 +36,11 @@ public class PlayerMotor : MonoBehaviour
 
     private void ApplyGravity()
     {
-        _cc.Move(new Vector3(0f, -_gravity * Time.deltaTime, 0f));
+        if (_cc.isGrounded) return;
+
+        _currentVertPower -= _gravity * Time.deltaTime;
+
+        _cc.Move(new Vector3(0f, _currentVertPower * Time.deltaTime, 0f));
     }
 
     public void MoveWithJoystick(Vector2 joystickAxis)
@@ -50,7 +56,10 @@ public class PlayerMotor : MonoBehaviour
         var rot = transform.rotation.eulerAngles;
         rot.y += joystickAxis.x * _speedRot * Time.deltaTime;
         transform.rotation = Quaternion.Euler(rot);
+    }
 
-        Debug.Log("Rot: " + rot);
+    public void Jump()
+    {
+        _currentVertPower = _jumpPower;
     }
 }

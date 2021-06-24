@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         var axisValues = new Vector2();
         axisValues = GetAxisValues();
         MovePlayer(axisValues);
-
+        HandleJump();
         HandleShooting();
     }
 
@@ -52,6 +52,14 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer(Vector2 axisValues)
     {
         _playerMotor.MoveWithJoystick(axisValues);
+    }
+
+    private void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _playerMotor.Jump();
+        }
     }
 
     private void HandleShooting()
