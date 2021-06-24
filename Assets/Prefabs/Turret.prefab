@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2007804924027154586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3879161864326929908}
+  m_Layer: 0
+  m_Name: Bullet Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3879161864326929908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007804924027154586}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.094697356, y: -0.04, z: 0.613}
+  m_LocalScale: {x: 3.353567, y: 2.2833657, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5322280373611922634}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2790048322311057060
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +40,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4491694257712217375}
   - component: {fileID: 8734478076349692740}
+  - component: {fileID: 1598001114260685078}
+  - component: {fileID: 243862186}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Enemy
@@ -44,7 +76,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b90a2223e92ef43a0685191b649cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pivotPoint: {fileID: 6719993245142996881}
+  _healthPoints: 1
+  _pivotPoint: {fileID: 1671580835192347263, guid: 02f89947153bb774d83733b1acb37ae1, type: 3}
+  _gun: {fileID: 1598001114260685078}
+--- !u!114 &1598001114260685078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790048322311057060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314a22a9784c4d24fbf18b9774ce8c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 788328368617825824, guid: fe5549d9a5972da4aa61f9cd12990008, type: 3}
+  _bulletSpawnPoint: {fileID: 3879161864326929908}
+--- !u!136 &243862186
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790048322311057060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.75
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4440758437846988825
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +218,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.02, y: -0.04, z: 0.42}
   m_LocalScale: {x: 0.21119912, y: 0.31018698, z: 0.7082703}
-  m_Children: []
+  m_Children:
+  - {fileID: 3879161864326929908}
   m_Father: {fileID: 6719993245142996881}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
