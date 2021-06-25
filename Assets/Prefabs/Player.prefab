@@ -262,6 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b80b5f4dd9d58d4fa59755e5c3aa15d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetMotor: {fileID: 5095519286376983102}
+  _playerGun: {fileID: 1608327396016112883}
 --- !u!114 &5095519286376983102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +278,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   _speedRot: 360
-  _gravity: 15
-  _jumpPower: 8
+  _gravity: 25
+  _jumpPower: 10
+  _numberOfJumps: 2
 --- !u!114 &1608327396016112883
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     public ActorMotor TargetMotor = null;
 
+    /// <summary>
+    /// The gun associated with the Player.
+    /// </summary>
+    public Gun _playerGun = null;
+
     #endregion
 
     #region Local Members
@@ -114,5 +119,8 @@ public class PlayerController : MonoBehaviour
     {
         HandleMoveInput();
         HandleJumpInput();
+
+        if (Input.GetMouseButtonDown(0))
+            _playerGun.Shoot();
     }
 }
