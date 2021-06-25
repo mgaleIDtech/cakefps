@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 [DisallowMultipleComponent]
-public class PlayerMotor : MonoBehaviour
+public class ActorMotor : MonoBehaviour
 {
     #region Inspector Variables
 

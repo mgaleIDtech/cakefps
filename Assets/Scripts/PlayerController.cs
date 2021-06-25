@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// The ActorMotor component this controller is sending data to.
     /// </summary>
-    public PlayerMotor TargetMotor = null;
+    public ActorMotor TargetMotor = null;
 
     #endregion
 
