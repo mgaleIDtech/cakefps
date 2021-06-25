@@ -7,18 +7,22 @@ public class PlayerMotor : MonoBehaviour
     private CharacterController _cc = null;
 
     [SerializeField]
-    private float _speed = 2f;
+    private float _speed = 8f;
     [SerializeField]
-    private float _speedRot = 90f;
+    private float _speedRot = 360f;
     [SerializeField]
-    private float _gravity = 2f;
+    private float _gravity = 15f;
+    private const float _maxRiseSpeed = 50f;
     [SerializeField]
-    private float _jumpPower = 2f;
+    private float _jumpPower = 8f;
+    private float _maxFallSpeed { get { return _gravity; } }
 
     /// <summary>
     /// The gravity (or anti-gravity) the character is currently being applied with.
     /// </summary>
     private float _currentVertPower = 0f;
+
+    Vector3 _moveVector = Vector3.zero;
 
     private void Awake()
     {
@@ -28,28 +32,42 @@ public class PlayerMotor : MonoBehaviour
             Debug.LogError("Could not find a CharacterController component on " + gameObject.name);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_cc.isGrounded == false)
-            ApplyGravity();
+        Debug.Log("_cc.isGrounded: " + _cc.isGrounded);
+        ApplyGravityToMoveVector();
+        ApplyMoveVector();
     }
 
-    private void ApplyGravity()
+    private void ApplyMoveVector()
     {
-        if (_cc.isGrounded) return;
+        if (_moveVector.y == 0f)
+            Debug.Log("_moveVector: " + _moveVector);
+        _cc.Move(_moveVector * Time.deltaTime);
+        _moveVector = Vector3.zero;
+    }
 
-        _currentVertPower -= _gravity * Time.deltaTime;
+    private void ApplyGravityToMoveVector()
+    {
+        if (_cc.isGrounded && _currentVertPower <= 0f)
+        {
+            // If _moveVector.y ever isn't negative, then isGrounded will be false.
+            _currentVertPower = -_gravity * Time.deltaTime;
+        }
+        else
+        {
+            _currentVertPower -= _gravity * Time.deltaTime;
+            _currentVertPower = Mathf.Clamp(_currentVertPower, -_maxFallSpeed, _maxRiseSpeed);
+        }
 
-        _cc.Move(new Vector3(0f, _currentVertPower * Time.deltaTime, 0f));
+        _moveVector.y = _currentVertPower;
     }
 
     public void MoveWithJoystick(Vector2 joystickAxis)
     {
-        Vector3 moveVector = new Vector3();
-
+        // Move
         // Vertical (Y) is forward and backwards.
-        moveVector = transform.TransformDirection(Vector3.forward) * (joystickAxis.y * _speed * Time.deltaTime);
-        _cc.Move(moveVector);
+        _moveVector = transform.TransformDirection(Vector3.forward) * (joystickAxis.y * _speed);
 
         // Rotation
         // Horizontal (X) is rotating
@@ -60,6 +78,9 @@ public class PlayerMotor : MonoBehaviour
 
     public void Jump()
     {
-        _currentVertPower = _jumpPower;
+        if (_cc.isGrounded)
+        {
+            _currentVertPower = _jumpPower;
+        }
     }
 }

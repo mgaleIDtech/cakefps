@@ -276,8 +276,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   _speedRot: 360
-  _gravity: 25
-  _jumpPower: 2
+  _gravity: 15
+  _jumpPower: 8
 --- !u!114 &1608327396016112883
 MonoBehaviour:
   m_ObjectHideFlags: 0
